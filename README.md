@@ -75,7 +75,7 @@ Get-CimInstance Win32_StartupCommand
 ## Получаем список установленного ПО 
 ### через wmic
 
-```powershellwmic 
+```powershell  
 product get Name,IdentifyingNumber
 ```
 
@@ -126,8 +126,6 @@ Remove-Item -Path "$env:TMP\*" -Recurse -Force
 Remove-Item -Path "$env:HOMEDRIVE$env:HOMEPATH\Local Settings\Temporary Internet Files\*" -Recurse -Force
 Remove-Item -Path "$env:LOCALAPPDATA\Microsoft\Windows\Temporary Internet Files\*" -Recurse -Force
 ```
-
-
 ## Создать точку восстановления : 
 
 ```powershell
@@ -180,8 +178,25 @@ Get-ComputerRestorePoint
  ```powershell
   wmic service where "state='Running'" get name, state
  ```
-
-
++ Получение списка обновлений
+  ``` powershell
+  wmic qfe list brief
+  ```
+  либо
+  ``` powershell
+  Get-HotFix
+  ```
+Удалить можно командой : 
+```powershell 
+wusa /uninstall /kb:  /quiet /norestart
+```
+Пример удаления нескольких обнов : 
+```powershell
+$updatesToRemove = @("KB5021234", "KB5019980")
+foreach ($update in $updatesToRemove) {
+    Start-Process "wusa.exe" -ArgumentList "/uninstall /kb:$update /quiet /norestart" -Wait
+}
+```
 ## Zabbix
 Получаем имя пк в заббиксе
 ```powershell
