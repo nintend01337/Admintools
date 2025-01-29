@@ -298,5 +298,70 @@ Get-Printer | Where-Object { $_.Name -like "*HP*" } | ForEach-Object { Remove-Pr
 Get-WmiObject -Class Win32_TCPIPPrinterPort | Where-Object { $_.Name -like "*HP*" } | ForEach-Object { $_.Delete() }
 Get-WmiObject -Class Win32_PrinterDriver | Where-Object { $_.Name -like "*HP*" } | ForEach-Object { $_.Delete() }
 ```
-## PnpUtil
 
+
+
+## Очистка диска 
+
+### Подготовка сета :
+```cmd 
+cleanmgr /sageset:1
+
+```
+### Запуск сета :
+```cmd 
+cleanmgr /sagerun:1
+
+```
+### Добавить очистку в планировщик  :
+```cmd 
+schtasks /create /tn "Очистка диска" /tr "cleanmgr.exe /sageset:1" /sc monthly /d 1,15 /st 09:00 /f
+
+```
+## DISM 
+
+### Узнать состояние зарезервированого хранилища
+```cmd
+DISM /Online  /Get-ReservedStorageState
+```
+
+### Отключить зарезервированое хранилище
+
+```cmd
+DISM /Online  /Set-ReservedStorageState /State:Disabled 
+```
+### Включить зарезервированое хранилище
+
+```cmd
+DISM /Online  /Set-ReservedStorageState /State:Enabled 
+```
+
+### Анализ и очистка компонентов хранилища Windows WinSxS
+
+```cmd
+DISM /Online  /cleanup-image /AnalyzeComponentStore
+```
+
+### Очистка хранилища Windows WinSxS
+
+```cmd
+DISM /Online  /cleanup-image /StartComponentCleanUp /ResetBase
+```
+
+### Сжатие Системы 
+
+Проверить сжатие системы
+
+```cmd
+compact /CompactOS:query
+```
+Сжать систему 
+```cmd
+compact /CompactOS:always
+```
+Отменить сжатие
+```cmd
+compact /CompactOS:never
+```
+
+## PnpUtil
