@@ -206,6 +206,11 @@ type C:/zabbix/config.conf | findstr "Hostname"
 ```powershell 
 Get-Content C://Zabbix//config.conf | Select-String Hostname
 ```
+Переименовываем хост удаленно 
+```powershell 
+(Get-Content "C:/zabbix/config.conf") -replace "Hostname=Current","Hostname=Result" | Set-Content "C:/zabbix/config.conf"
+```
+
 ### Удаление Zabbix'a 
 #### Удаляем заббикса происходит следующим путем
 + Стопаем службу заббикса ```sc stop "zabbix agent"```
