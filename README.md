@@ -320,7 +320,7 @@ cleanmgr /sagerun:1
 ```
 ### Добавить очистку в планировщик  :
 ```cmd 
-schtasks /create /tn "Очистка диска" /tr "cleanmgr.exe /sageset:1" /sc monthly /d 1 /st 09:00 /f
+schtasks /create /tn "Очистка диска" /tr "cleanmgr.exe /sagerun:1" /sc monthly /d 1 /st 09:00 /f
 
 ```
 ## DISM 
