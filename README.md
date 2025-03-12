@@ -40,6 +40,7 @@ Get-MpPreference | Select-Object -ExpandProperty ExclusionPath
 ```
 ### Добавляем в исключения : 
 ```powershell
+Add-MpPreference -ExclusionPath "C:\zabbix\"
 Add-MpPreference -ExclusionPath "C:\Program Files\TacticalAgent\*" 
 Add-MpPreference -ExclusionPath "C:\Program Files\Mesh Agent\*"
 Add-MpPreference -ExclusionPath "C:\ProgramData\TacticalRMM\*"
